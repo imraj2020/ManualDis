@@ -1,10 +1,11 @@
 package com.mehedi.manualdiu
 
 import android.app.Application
-import com.mehedi.manualdiu.di.ObjContainer
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApp : Application() {
-    val container = ObjContainer()
+    //val container = ObjContainer()
 
 
 }

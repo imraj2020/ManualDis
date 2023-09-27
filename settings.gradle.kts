@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ManualDIU"
+rootProject.name = "RestApi"
 include(":app")
+include(":baselib")
