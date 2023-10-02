@@ -1,4 +1,4 @@
-package com.mehedi.manualdiu.ui
+package com.mehedi.manualdiu.ui.login
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repo: UserRepo) : ViewModel() {
+class LoginViewModel @Inject constructor(private val repo: UserRepo) : ViewModel() {
 
     private var _loginResponse = MutableLiveData<NetworkState<ResponseLogin>>()
     val loginResponse: LiveData<NetworkState<ResponseLogin>> = _loginResponse

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.mehedi.manualdiu.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_regsiterFragment"
+            app:destination="@id/regsiterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/regsiterFragment"
+        android:name="com.mehedi.manualdiu.ui.register.RegisterFragment"
+        android:label="fragment_regsiter"
+        tools:layout="@layout/fragment_regsiter" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mehedi.manualdiu.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.mehedi.manualdiu.ui.profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" />
+</navigation>

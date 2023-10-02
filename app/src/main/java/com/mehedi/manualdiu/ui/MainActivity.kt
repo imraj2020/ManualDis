@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 
-    private val viewModel: MainViewModel by viewModels()
+
 
     lateinit var binding: ActivityMainBinding
 
@@ -32,48 +32,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-        viewModel.loginResponse.observe(this) {
-
-            when (it) {
-                is NetworkState.Error -> {
-                    binding.progressHorizontal.visibility = View.GONE
-                    Toast.makeText(this, "${it.message}", Toast.LENGTH_LONG).show()
-                }
-
-                is NetworkState.Loading -> {
-                    binding.progressHorizontal.visibility = View.VISIBLE
-
-                }
-
-                is NetworkState.Success -> {
-
-                    Toast.makeText(this, "Login Success ! ", Toast.LENGTH_LONG).show()
-                    Log.d("TAG", "Data :${it.data} ")
-
-                    binding.progressHorizontal.visibility = View.GONE
-
-                }
-            }
-
-
-        }
-
-
-
-        binding.loginBtn.setOnClickListener {
-
-            binding.progressHorizontal.visibility = View.VISIBLE
-
-            val loginRequest = RequestLogin("john@mail.com", "changeme")
-
-            val email = binding.userEmail.text.toString().trim()
-            val password = binding.userPasword.text.toString().trim()
-
-            viewModel.loginUser(loginRequest)
-
-
-        }
 
 
     }
