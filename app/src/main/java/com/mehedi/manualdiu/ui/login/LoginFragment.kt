@@ -11,12 +11,21 @@ import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.NetworkState
 import com.mehedi.manualdiu.data.models.RequestLogin
 import com.mehedi.manualdiu.databinding.FragmentLoginBinding
+import com.mehedi.manualdiu.utils.KEY_ACCESS
+import com.mehedi.manualdiu.utils.KEY_REFRESH
+import com.mehedi.manualdiu.utils.PrefsManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+
+
+    @Inject
+    lateinit var prefsManager: PrefsManager
+
 
     private val viewModel: LoginViewModel by viewModels()
     override fun responseObserver() {
@@ -34,11 +43,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 }
 
                 is NetworkState.Success -> {
+                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+
 
                     Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
                     Log.d("TAG", "Data :${it.data} ")
 
                     binding.progressHorizontal.visibility = View.GONE
+                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+
 
                 }
             }
@@ -64,12 +78,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             binding.progressHorizontal.visibility = View.VISIBLE
 
-            // val loginRequest = RequestLogin("john@mail.com", "changeme")
+            val loginRequest = RequestLogin("john@mail.com", "changeme")
 
             val email = binding.userEmail.text.toString().trim()
             val password = binding.userPasword.text.toString().trim()
 
-            val loginRequest = RequestLogin(email = email, password = password)
+            // val loginRequest = RequestLogin(email = email, password = password)
 
             viewModel.loginUser(loginRequest)
 
