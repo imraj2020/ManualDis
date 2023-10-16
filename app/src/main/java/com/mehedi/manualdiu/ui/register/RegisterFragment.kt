@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.NetworkState
-import com.mehedi.manualdiu.data.models.RequestLogin
 import com.mehedi.manualdiu.data.models.register.RequestRegister
 import com.mehedi.manualdiu.databinding.FragmentRegsiterBinding
 import dagger.hilt.android.AndroidEntryPoint

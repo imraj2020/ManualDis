@@ -6,9 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mehedi.manualdiu.core.NetworkState
-import com.mehedi.manualdiu.data.models.RequestLogin
-import com.mehedi.manualdiu.data.models.ResponseLogin
-import com.mehedi.manualdiu.data.models.register.RequestRegister
 import com.mehedi.manualdiu.data.models.register.ResponseRegister
 import com.mehedi.manualdiu.repos.UserRepo
 import dagger.hilt.android.lifecycle.HiltViewModel

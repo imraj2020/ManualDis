@@ -1,4 +1,4 @@
-package com.mehedi.manualdiu.data.models
+package com.mehedi.manualdiu.data.models.login
 
 
 import com.google.gson.annotations.SerializedName

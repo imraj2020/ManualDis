@@ -9,7 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.mehedi.manualdiu.R
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.NetworkState
-import com.mehedi.manualdiu.data.models.RequestLogin
+import com.mehedi.manualdiu.data.models.login.RequestLogin
+import com.mehedi.manualdiu.data.models.token.RequestToken
 import com.mehedi.manualdiu.databinding.FragmentLoginBinding
 import com.mehedi.manualdiu.utils.KEY_ACCESS
 import com.mehedi.manualdiu.utils.KEY_REFRESH
@@ -19,7 +20,6 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
 
@@ -29,6 +29,42 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private val viewModel: LoginViewModel by viewModels()
     override fun responseObserver() {
+
+
+        viewModel.refreshTokenResponse.observe(viewLifecycleOwner) {
+
+
+            when (it) {
+                is NetworkState.Error -> {
+                    binding.animationView.visibility = View.GONE
+                    binding.mainView.visibility = View.VISIBLE
+
+                }
+
+                is NetworkState.Loading -> {
+                    binding.animationView.visibility = View.VISIBLE
+                    binding.mainView.visibility = View.GONE
+
+
+                }
+
+                is NetworkState.Success -> {
+
+                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+
+                    Log.d("TAG", "New Token :${it.data} ")
+                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+
+
+                }
+            }
+
+        }
+
+
+
+
         viewModel.loginResponse.observe(viewLifecycleOwner) {
 
             when (it) {
@@ -48,7 +84,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
                     Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
-                    Log.d("TAG", "Data :${it.data} ")
+                    Log.d("TAG", "Old Token :${it.data} ")
 
                     binding.progressHorizontal.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
@@ -59,6 +95,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
         }
+
+
+
+        viewModel.refreshToken(RequestToken(prefsManager.getPref(KEY_REFRESH)))
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
