@@ -39,8 +39,8 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun userRepo(localSource: LocalSource, remoteSource: RemoteSource) =
-        UserRepo(localSource, remoteSource)
+    fun userRepo(localSource: LocalSource, remoteSource: RemoteSource, service: ApiService) =
+        UserRepo(localSource, remoteSource, service)
 
 
     @Provides

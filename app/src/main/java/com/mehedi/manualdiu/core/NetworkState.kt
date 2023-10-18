@@ -1,6 +1,6 @@
 package com.mehedi.manualdiu.core
 
-sealed class NetworkState<T>(
+sealed class  NetworkState<T>(
     var data: T? = null,
     var message: String? = null
 ) {
