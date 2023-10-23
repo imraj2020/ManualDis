@@ -27,7 +27,7 @@ interface ApiService {
 
 
     @GET(PROFILE_ENDPOINT)
-    suspend fun profile(): Response<ResponseRegister>
+    suspend fun profile(): Response<ResponseBody>
 
     @POST(TOKEN_ENDPOINT)
     suspend fun refreshToken(@Body requestToken: RequestToken): Response<ResponseToken>

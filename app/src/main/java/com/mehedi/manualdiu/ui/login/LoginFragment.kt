@@ -9,10 +9,8 @@ import com.google.gson.Gson
 import com.mehedi.manualdiu.R
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.DataState
-import com.mehedi.manualdiu.core.NetworkState
 import com.mehedi.manualdiu.data.models.login.RequestLogin
 import com.mehedi.manualdiu.data.models.login.ResponseLogin
-import com.mehedi.manualdiu.data.models.token.RequestToken
 import com.mehedi.manualdiu.databinding.FragmentLoginBinding
 import com.mehedi.manualdiu.utils.KEY_ACCESS
 import com.mehedi.manualdiu.utils.KEY_REFRESH
@@ -34,71 +32,71 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     override fun responseObserver() {
 
 
-        viewModel.refreshTokenResponse.observe(viewLifecycleOwner) {
+        /*        viewModel.refreshTokenResponse.observe(viewLifecycleOwner) {
 
 
-            when (it) {
-                is NetworkState.Error -> {
-                    binding.animationView.visibility = View.GONE
-                    binding.mainView.visibility = View.VISIBLE
+                    when (it) {
+                        is NetworkState.Error -> {
+                            binding.animationView.visibility = View.GONE
+                            binding.mainView.visibility = View.VISIBLE
+
+                        }
+
+                        is NetworkState.Loading -> {
+                            binding.animationView.visibility = View.VISIBLE
+                            binding.mainView.visibility = View.GONE
+
+
+                        }
+
+                        is NetworkState.Success -> {
+
+                            it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+                            it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+
+                            Log.d("TAG", "New Token :${it.data} ")
+                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+
+
+                        }
+                    }
 
                 }
 
-                is NetworkState.Loading -> {
-                    binding.animationView.visibility = View.VISIBLE
-                    binding.mainView.visibility = View.GONE
+
+        //        viewModel.loginResponse.observe(viewLifecycleOwner) {
+        //
+        //            when (it) {
+        //                is NetworkState.Error -> {
+        //                    binding.progressHorizontal.visibility = View.GONE
+        //                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_LONG).show()
+        //                }
+        //
+        //                is NetworkState.Loading -> {
+        //                    binding.progressHorizontal.visibility = View.VISIBLE
+        //
+        //                }
+        //
+        //                is NetworkState.Success -> {
+        //                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+        //                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+        //
+        //
+        //                    Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
+        //                    Log.d("TAG", "Old Token :${it.data} ")
+        //
+        //                    binding.progressHorizontal.visibility = View.GONE
+        //                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+        //
+        //
+        //                }
+        //            }
+        //
+        //
+        //        }
 
 
-                }
-
-                is NetworkState.Success -> {
-
-                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
-                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
-
-                    Log.d("TAG", "New Token :${it.data} ")
-                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
-
-
-                }
-            }
-
-        }
-
-
-//        viewModel.loginResponse.observe(viewLifecycleOwner) {
-//
-//            when (it) {
-//                is NetworkState.Error -> {
-//                    binding.progressHorizontal.visibility = View.GONE
-//                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_LONG).show()
-//                }
-//
-//                is NetworkState.Loading -> {
-//                    binding.progressHorizontal.visibility = View.VISIBLE
-//
-//                }
-//
-//                is NetworkState.Success -> {
-//                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
-//                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
-//
-//
-//                    Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
-//                    Log.d("TAG", "Old Token :${it.data} ")
-//
-//                    binding.progressHorizontal.visibility = View.GONE
-//                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
-//
-//
-//                }
-//            }
-//
-//
-//        }
-
-
-        viewModel.refreshToken(RequestToken(prefsManager.getPref(KEY_REFRESH)))
+                viewModel.refreshToken(RequestToken(prefsManager.getPref(KEY_REFRESH)))*/
 
 
     }
@@ -108,6 +106,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             when (it) {
 
                 is DataState.Success -> {
+                    binding.animationView.visibility = View.GONE
                     binding.progressHorizontal.visibility = View.GONE
                     // dismiss loading
                     // loadingDialog.dismiss()
@@ -147,6 +146,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
                 is DataState.Loading -> {
                     // loadingDialog.show()
+                    binding.animationView.visibility = View.VISIBLE
 
                     binding.progressHorizontal.visibility = View.VISIBLE
                     Log.d("TAG", "Loading....: ")
@@ -155,6 +155,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 is DataState.Error -> {
                     //loadingDialog.dismiss()
                     binding.progressHorizontal.visibility = View.GONE
+                    binding.animationView.visibility = View.GONE
+                    binding.mainView.visibility = View.VISIBLE
                     Log.d("TAG", "${it.errorBody.toString()}....: ")
                     if (it.isNetworkError) {
                         //showToast(getString(R.string.internet_conn_lost_title))
@@ -187,7 +189,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             binding.progressHorizontal.visibility = View.VISIBLE
 
-            val loginRequest = RequestLogin("john@mail.com", "changeme")
+            val loginRequest = RequestLogin("nico@gmail.com", "1234")
 
             val email = binding.userEmail.text.toString().trim()
             val password = binding.userPasword.text.toString().trim()

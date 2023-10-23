@@ -43,7 +43,7 @@ class LoginViewModel @Inject constructor(private val repo: UserRepo) : ViewModel
 
     }
 
-    private var _refreshTokenResponse = MutableLiveData<NetworkState<ResponseToken>>()
+/*    private var _refreshTokenResponse = MutableLiveData<NetworkState<ResponseToken>>()
     val refreshTokenResponse: LiveData<NetworkState<ResponseToken>> = _refreshTokenResponse
     fun refreshToken(request: RequestToken) {
         _refreshTokenResponse.postValue(NetworkState.Loading())
@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(private val repo: UserRepo) : ViewModel
         }
 
 
-    }
+    }*/
 
 
 }

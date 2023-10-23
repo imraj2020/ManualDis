@@ -1,11 +1,10 @@
 package com.mehedi.manualdiu.di
 
 import android.content.Context
+import com.mehedi.baselib.NativeLib
 import com.mehedi.manualdiu.data.LocalSource
-import com.mehedi.manualdiu.data.RemoteSource
 import com.mehedi.manualdiu.network.ApiService
 import com.mehedi.manualdiu.repos.UserRepo
-import com.mehedi.baselib.NativeLib
 import com.mehedi.manualdiu.utils.AuthInterceptor
 import com.mehedi.manualdiu.utils.PrefsManager
 import dagger.Module
@@ -29,9 +28,9 @@ class ObjModule {
     }
 
 
-    @Provides
-    @Singleton
-    fun remoteSource(retrofit: ApiService) = RemoteSource(retrofit)
+//    @Provides
+//    @Singleton
+//    fun remoteSource(retrofit: ApiService) = RemoteSource(retrofit)
 
     @Provides
     @Singleton
@@ -39,8 +38,8 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun userRepo(localSource: LocalSource, remoteSource: RemoteSource, service: ApiService) =
-        UserRepo(localSource, remoteSource, service)
+    fun userRepo(localSource: LocalSource, service: ApiService) =
+        UserRepo(localSource, service)
 
 
     @Provides

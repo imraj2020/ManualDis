@@ -20,27 +20,27 @@ class RegisterViewModel @Inject constructor(private val repo: UserRepo) : ViewMo
     val userCreateResponse: LiveData<NetworkState<ResponseRegister>> = _response
 
 
-    fun register(request: RequestRegister) {
-        _response.postValue(NetworkState.Loading())
-
-        viewModelScope.launch {
-
-            val response = repo.register(request)
-
-            if (response.isSuccessful) {
-                _response.postValue(NetworkState.Success(response.body()!!))
-
-            } else {
-                _response.postValue(NetworkState.Error("Something went Wrong!"))
-            }
-
-            Log.d("TAG", "loginUser: $response ")
-
-
-        }
-
-
-    }
+//    fun register(request: RequestRegister) {
+//        _response.postValue(NetworkState.Loading())
+//
+//        viewModelScope.launch {
+//
+//            val response = repo.register(request)
+//
+//            if (response.isSuccessful) {
+//                _response.postValue(NetworkState.Success(response.body()!!))
+//
+//            } else {
+//                _response.postValue(NetworkState.Error("Something went Wrong!"))
+//            }
+//
+//            Log.d("TAG", "loginUser: $response ")
+//
+//
+//        }
+//
+//
+//    }
 
 
 }
