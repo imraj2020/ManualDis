@@ -135,7 +135,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                                     it1
                                 )
                             }
-                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 
 
                         } else {
