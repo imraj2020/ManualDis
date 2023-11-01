@@ -1,33 +1,25 @@
-package com.mehedi.manualdiu.ui.home.ui
+package com.mehedi.manualdiu.ui.product.ui
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.mehedi.manualdiu.R
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.DataState
-import com.mehedi.manualdiu.databinding.FragmentHomeBinding
-import com.mehedi.manualdiu.ui.home.adapters.CategoryAdapter
-import com.mehedi.manualdiu.ui.home.model.ResponseCategoryItem
-import com.mehedi.manualdiu.ui.home.viewmodels.HomeViewModel
+import com.mehedi.manualdiu.databinding.FragmentProductBinding
+import com.mehedi.manualdiu.ui.product.models.ResponseProductItem
+import com.mehedi.manualdiu.ui.product.viewmodels.ProductViewModel
 import com.mehedi.manualdiu.utils.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
 
-
-    lateinit var adapter: CategoryAdapter
-
-    private val viewModel: HomeViewModel by viewModels()
+    val viewmodel: ProductViewModel by viewModels()
 
     override fun responseObserver() {
-        viewModel.categoryResponse.observe(viewLifecycleOwner) {
-
+        viewmodel.productByCategoryResponse.observe(viewLifecycleOwner) {
             when (it) {
 
                 is DataState.Success -> {
@@ -43,8 +35,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         Log.e("TAG", body.toString())
                         if (NetworkUtils.isValidResponse(it)) {
 
-                            val mcArray: Array<ResponseCategoryItem> = Gson().fromJson(
-                                body, Array<ResponseCategoryItem>::class.java
+                            val mcArray: Array<ResponseProductItem> = Gson().fromJson(
+                                body, Array<ResponseProductItem>::class.java
                             )
                             mcArray.forEach {
                                 Log.e("TAG", "${it.toString()}")
@@ -81,23 +73,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         }
 
-
     }
 
-    private fun setData(list: List<ResponseCategoryItem>) {
+    private fun setData(productList: List<ResponseProductItem>) {
 
-        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        binding.ctgRCV.apply {
-            layoutManager = manager
-            adapter = CategoryAdapter(list) { ctg ->
-
-                val bundle = Bundle()
-                bundle.putInt("ctg", ctg.id)
-
-                findNavController().navigate(R.id.action_homeFragment_to_productFragment, bundle)
-            }
-
+        productList.forEach {
+            Log.e("TAG", "product: $it \n")
 
         }
 
@@ -107,7 +88,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getCategoryResponse()
+        arguments?.getInt("ctg")?.let {
+            viewmodel.getCategoryResponse(it)
+        }
 
 
     }

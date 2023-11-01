@@ -8,8 +8,13 @@ import coil.load
 import com.mehedi.manualdiu.databinding.RowCategoryBinding
 import com.mehedi.manualdiu.ui.home.model.ResponseCategoryItem
 
-class CategoryAdapter(val categoryList: List<ResponseCategoryItem>) :
+class CategoryAdapter(val categoryList: List<ResponseCategoryItem>, val listener: Listener) :
     RecyclerView.Adapter<CategoryAdapter.VH>() {
+
+
+    fun interface Listener {
+        fun onCtgClicked(ctg: ResponseCategoryItem)
+    }
 
 
     class VH(val binding: RowCategoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -30,6 +35,12 @@ class CategoryAdapter(val categoryList: List<ResponseCategoryItem>) :
         holder.binding.apply {
             categoryTitle.text = ctg.name
             categoryImg.load(ctg.image)
+
+            root.setOnClickListener {
+
+                listener.onCtgClicked(ctg)
+            }
+
         }
 
 
