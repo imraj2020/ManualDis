@@ -9,7 +9,6 @@ import com.google.gson.Gson
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.DataState
 import com.mehedi.manualdiu.databinding.FragmentProductBinding
-import com.mehedi.manualdiu.ui.product.adapter.ProductAdapter
 import com.mehedi.manualdiu.ui.product.adapter.ProductListAdapter
 import com.mehedi.manualdiu.ui.product.models.ResponseProductItem
 import com.mehedi.manualdiu.ui.product.viewmodels.ProductViewModel

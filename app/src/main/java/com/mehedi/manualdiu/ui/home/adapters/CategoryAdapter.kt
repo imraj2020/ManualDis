@@ -34,7 +34,7 @@ class CategoryAdapter(val categoryList: List<ResponseCategoryItem>, val listener
 
         holder.binding.apply {
             categoryTitle.text = ctg.name
-            categoryImg.load(ctg.image)
+            productImg.load(ctg.image)
 
             root.setOnClickListener {
 

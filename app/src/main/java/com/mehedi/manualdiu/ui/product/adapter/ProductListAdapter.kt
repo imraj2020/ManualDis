@@ -12,7 +12,6 @@ class ProductListAdapter(val productList: List<ResponseProductItem>) :
     RecyclerView.Adapter<ProductListAdapter.VHF>() {
 
 
-
     class VHF(val binding: ProductListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHF {
@@ -24,22 +23,26 @@ class ProductListAdapter(val productList: List<ResponseProductItem>) :
     override fun onBindViewHolder(holder: ProductListAdapter.VHF, position: Int) {
 
         val product = productList[position]
-      holder.binding.apply {
-          productTitle.text = product.title
+        holder.binding.apply {
+            productTitle.text = product.title
 //          productImg.load(product.images)
 //          val imageUrl = productList[position].category?.image
 //          productImg.load(imageUrl)
 
+            val adapter = ProductImageAdapter(productList[position].images as List<String>)
 
-          val imageUrls = productList[position].images?.get(0) // Get the first image URL
+            holder.binding.imageSlider.adapter = adapter
 
-          Glide.with(holder.itemView)
-              .load(imageUrls)
-              .into(holder.binding.productImg)
 
-      }
+//            val imageUrls = productList[position].images?.get(0) // Get the first image URL
 
-    }
+//            Glide.with(holder.itemView)
+//                .load(imageUrls)
+//                .into(holder.binding.productImg)
+//
+//        }
+
+    }}
 
     override fun getItemCount(): Int {
         return productList.size
