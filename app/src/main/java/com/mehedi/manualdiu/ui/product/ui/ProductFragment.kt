@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.mehedi.manualdiu.base.BaseFragment
 import com.mehedi.manualdiu.core.DataState
 import com.mehedi.manualdiu.databinding.FragmentProductBinding
+import com.mehedi.manualdiu.ui.product.adapter.ProductAdapter
+import com.mehedi.manualdiu.ui.product.adapter.ProductListAdapter
 import com.mehedi.manualdiu.ui.product.models.ResponseProductItem
 import com.mehedi.manualdiu.ui.product.viewmodels.ProductViewModel
 import com.mehedi.manualdiu.utils.NetworkUtils
@@ -17,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBinding::inflate) {
 
     val viewmodel: ProductViewModel by viewModels()
+   lateinit var adapter: ProductListAdapter
 
     override fun responseObserver() {
         viewmodel.productByCategoryResponse.observe(viewLifecycleOwner) {
@@ -80,6 +84,14 @@ class ProductFragment : BaseFragment<FragmentProductBinding>(FragmentProductBind
         productList.forEach {
             Log.e("TAG", "product: $it \n")
 
+        }
+
+        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        binding.pdRCV.apply {
+            layoutManager = manager
+            adapter = ProductListAdapter(productList)
         }
 
 

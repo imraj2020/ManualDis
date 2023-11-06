@@ -189,7 +189,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
             binding.progressHorizontal.visibility = View.VISIBLE
 
-            val loginRequest = RequestLogin("nico@gmail.com", "1234")
+            val loginRequest = RequestLogin("john@mail.com", "changeme")
 
             val email = binding.userEmail.text.toString().trim()
             val password = binding.userPasword.text.toString().trim()
